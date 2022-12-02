@@ -2,9 +2,11 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useRouter } from "next/router";
-
+import React, {  useState,useRef,useEffect } from "react";
 export default function Home() {
   const router = useRouter();
+  const [clientsigned, setclientsigned] = useState<boolean>(false);
+  const [freelancersigned, setfreelancersigned] = useState<boolean>(false);
   const connectWallet=async(type:string)=>{
     console.log("in")
     if((window as any).ethereum){
@@ -17,11 +19,17 @@ export default function Home() {
       });
       localStorage.setItem("user",type)
       localStorage.setItem("walletaddress",accounts[0])
-      if(accounts && type==="client"){
+      if(accounts && type==="client" && clientsigned){
      router.push('/client/dashboard')
       }
-      else if(accounts && type==="freelancer"){
+      else if(accounts && type==="client" && !clientsigned){
+        router.push('/signup/clientsignup')
+      }
+      else if(accounts && type==="freelancer" && freelancersigned){
         router.push('/freelancer/dashboard')
+      }
+      else if(accounts && type==="freelancer" && !freelancersigned){
+        router.push('/signup/freelancersignup')
       }
     }
 

@@ -1,11 +1,58 @@
 import { FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, useTheme } from "@mui/material";
-import React, {  useState } from "react";
+import React, {  useState,useRef,useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import CreateProjectStyles from './createproject.module.scss';
 import { useRouter } from "next/router";
 
 export default function CreateProject() {
     const router = useRouter();
+    const emailRef = useRef(null);
+    const emailSpanRef = useRef(null);
+    const budgetRef = useRef(null);
+    const companyRef = useRef(null);
+    const phoneRef = useRef(null);
+    const [emailErr, setEmailErr] = useState<boolean>(false);
+    const [companyErr, setcompanyErr] = useState<boolean>(false);
+    const [contactErr, setcontactErr] = useState<boolean>(false);
+    const [budgetErr, setbudgetErr] = useState<boolean>(false);
+    const [fields, setFields] = useState({
+      company: "",
+      budget: "",
+      contact: "",
+      email: "",
+    });
+    const assignClasses = (emailval: string) => {
+      if (
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(emailval)
+      ) {
+        setEmailErr(false);
+      } else {
+        setEmailErr(true);
+      }
+    };
+    const assignClassesContact = (contactRef: string) => {
+      if (
+        /^[0-9]{10}$/.test(
+          (contactRef)
+        )
+      ) {
+        setcontactErr(false);
+      } else {
+        setcontactErr(true);
+      }
+    };
+    const assignClassesbudget = (budgetRef: string) => {
+      if (
+        /^[0-9]+$/.test(
+          budgetRef
+        )
+      ) {
+        setbudgetErr(false);
+      } else {
+        setbudgetErr(true);
+      }
+    };
+  
     const handleclick=(type:string)=>{
         if(type==="createproject"){
         router.push('/client/dashboard/createproject')
@@ -14,6 +61,49 @@ export default function CreateProject() {
           router.push('/client/dashboard')
         }
         }
+        const handleInputChange = (
+          event: React.ChangeEvent<HTMLInputElement>,
+          inputType: string
+        ) => {
+          let updatedFields: any = {};
+          updatedFields["company"] =
+          inputType === "company" ? event.target.value : fields.company;
+        updatedFields["budget"] =
+          inputType === "budget" ? event.target.value : fields.budget;
+          updatedFields["contact"] =
+          inputType === "contact" ? event.target.value : fields.contact;
+        updatedFields["email"] =
+          inputType === "email" ? event.target.value : fields.email;
+          setFields(updatedFields);
+        };
+        const mint=()=>{
+          console.log(fields)
+           if(fields.company ==='')
+           setcompanyErr(true);
+           if(fields.budget ==='')
+          setbudgetErr(true);
+           if(fields.contact ==='')
+           setcontactErr(true);
+            if (fields.email ==='') 
+           setEmailErr(true);
+            if(fields.contact!==''){
+            assignClassesContact(fields.contact);
+           }
+            if(fields.email!==''){
+            assignClasses(fields.email);
+          }
+          if(fields.company!==''){
+            setcompanyErr(false);
+          }
+          if(fields.budget !==''){
+            assignClassesbudget(fields.budget);
+          }
+           else{
+
+           }
+        }
+        useEffect(() => {
+        }, [fields]);
     return(<>
     <div className="justify-center flex h-full w-full">
       <div className=" bg-[#171717] w-[90%] justify-center flex-col pt-10">
@@ -48,20 +138,28 @@ export default function CreateProject() {
 				<div className={CreateProjectStyles.login100form + " p-b-33 p-t-5"}>
         <div className={ " flex flex-col gap-2 p-6 justify-center"}>
           <div  className="text-center justify-center p-1">
-						<input className={CreateProjectStyles.input100} placeholder="Company name"/> 
-	</div>
+						<input defaultValue={fields.company} className={CreateProjectStyles.input100} placeholder="Company name" onChange={(e) => handleInputChange(e, "company")} required/> 
+	{companyErr &&
+  <span className="text-red-600 text-md">Please add company name</span>}
+  </div>
   <div  className="text-center justify-center p-1">
-          <input className={CreateProjectStyles.input100} placeholder="Budget"/>
-			</div>
+          <input defaultValue={fields.budget} className={CreateProjectStyles.input100} placeholder="Budget" onChange={(e) => handleInputChange(e, "budget")} requi-600/>
+          {budgetErr &&
+  <span className="text-red-600 text-md">Please add budget</span>}
+      </div>
       <div  className="text-center justify-center p-1">           
-          <input className={CreateProjectStyles.input100} placeholder="Contact Number"/>
-		</div>
+          <input defaultValue={fields.contact} className={CreateProjectStyles.input100} placeholder="Contact Number" onChange={(e) => handleInputChange(e, "contact")} required/>
+          {contactErr &&
+  <span className="text-red-600 text-md">Please add valid contact number</span>}
+    </div>
     <div  className="text-center justify-center p-1">       
-          <input className={CreateProjectStyles.input100} placeholder="Email"/>
+          <input defaultValue={fields.email} className={CreateProjectStyles.input100} placeholder="Email" onChange={(e) => handleInputChange(e, "email")} required/>
+          {emailErr &&
+  <span className="text-red-600 text-md">Please add valid Email Id</span>}
           </div>
 					</div>
 					<div className={CreateProjectStyles.containerlogin100formbtn+" p-4"}>
-                    <button className={CreateProjectStyles.login100formbtn}>
+                    <button className={CreateProjectStyles.login100formbtn} onClick={()=>mint()}>
               Mint
             </button>
 					</div>
