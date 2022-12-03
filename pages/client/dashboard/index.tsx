@@ -13,10 +13,11 @@ export default function ClientDashboard() {
   const router = useRouter();
   const [username, setUserName] = useState<string>("");
   const [avatars, setAvatar] = useState<string>("");
+  const [itemid, setitemid] = useState<number>();
   const [useraccount, setUserAccount] = useState<string>("");
   const [enableChat, setenableChat] = useState<boolean>(false);
   const [approvEn, setapprovEn] = useState<boolean>(false);
-  const [rejectEn, setrejectEn] = useState<boolean>(false);
+  const [projectsCmpl, setprojectsCmpl] = useState([""]);
   function getStyles(name: string, personName: string[], theme: Theme) {
     return {
       fontWeight: personName.indexOf(name) === -1 ? theme.typography.fontWeightRegular : theme.typography.fontWeightMedium,
@@ -133,6 +134,7 @@ export default function ClientDashboard() {
           })
           .then(function (receipt: any) {
             setapprovEn(true);
+            setitemid(id);
             router.push("/client/dashboard");
           });
       });
@@ -174,12 +176,33 @@ export default function ClientDashboard() {
         gasPrice: 50000000000,
       })
       .then(function (receipt: any) {
+        setapprovEn(true);
         router.push("/client/dashboard");
       });
+  };
+  const getCompletedProjects = async () => {
+    const accounts = await web3.eth.getAccounts();
+    const projects = await axios.post("https://api.thegraph.com/subgraphs/name/darahask/nftfree", {
+      query: `{
+        projects(where: {client: "${accounts[0]}"}) {
+          project_cost
+          id
+          freelance
+        }
+      }`,
+    });
+    let totalprojects = projects.data.data.projects;
+    let arr: any = [];
+    for (let i = 0; i < totalprojects.length; i++) {
+      arr.push(totalprojects[i].id);
+    }
+    console.log(arr, "arrrrrrrrrrrdd");
+    setprojectsCmpl(arr);
   };
   useEffect(() => {
     getProjects();
     getNameAddress();
+    getCompletedProjects();
   }, [approvEn]);
   return (
     <>
@@ -244,7 +267,7 @@ export default function ClientDashboard() {
                           >
                             Chat
                           </button>
-                          {!approvEn && (
+                          {!projectsCmpl!.includes(item.id) && (
                             <div className=" flex justify-end w-full ">
                               <button
                                 className={ClientDashboardStyles.bidbtnn + " disabled:bg-grey-400"}
@@ -270,23 +293,20 @@ export default function ClientDashboard() {
                               </button>
                             </div>
                           )}
-                          {approvEn && (
-                            <div>
-                              <button
-                                className={ClientDashboardStyles.bidbtn}
-                                key={item.id}
-                                onClick={() => {
-                                  completeBuy(item.id, item.freelancer);
-                                }}
-                                disabled={item.sold ? false : true}
-                              >
-                                Complete
-                              </button>
-                            </div>
+                          {projectsCmpl!.includes(item.id) && (
+                            <button
+                              className={ClientDashboardStyles.bidbtn}
+                              key={item.id}
+                              onClick={() => {
+                                completeBuy(item.id, item.freelancer);
+                              }}
+                            >
+                              Complete
+                            </button>
                           )}
                           {enableChat && (
                             <Chat
-                              account={useraccount} //user address
+                              account={useraccount.toString()} //user address
                               supportAddress={item.freelancer} //support address
                               apiKey="WaPzABQ56k.aGFbWHdl5RVMbkwqoenzgfALVwWTQVotWFhkFO6qwpaX5PCQm7sM8NQaC0pgpLNX"
                               env="staging"
