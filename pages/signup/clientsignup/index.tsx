@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React, { useState, useRef, useEffect } from "react";
 import Web3 from "web3";
 import clientABI from "../../../src/abi/client-abi.json";
+
 export default function ClientSignup() {
   const router = useRouter();
   const [emailErr, setEmailErr] = useState<boolean>(false);
@@ -75,7 +76,6 @@ export default function ClientSignup() {
           to: nftaddress,
           data: nftcontract.methods.addClient(fields.name, fields.email, fields.contact, fields.company).encodeABI(),
         };
-        console.log(address[0], "accounttttttttttt");
         web3.eth
           .sendTransaction({
             from: address[0],

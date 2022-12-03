@@ -1,6 +1,5 @@
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, useTheme } from "@mui/material";
+import { SelectChangeEvent, Theme, useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import clientABI from "../../../src/abi/client-abi.json";
 import ClientDashboardStyles from "./clientdashboard.module.scss";
 import { useRouter } from "next/router";
@@ -9,7 +8,6 @@ import axios from "axios";
 import Web3 from "web3";
 import { Chat } from "@pushprotocol/uiweb";
 import tokenABI from "../../../src/abi/token-abi.json";
-import { AnyARecord } from "dns";
 
 export default function ClientDashboard() {
   const router = useRouter();
@@ -27,7 +25,7 @@ export default function ClientDashboard() {
   const theme = useTheme();
   const [personName, setPersonName] = useState<string[]>([]);
   const web3 = new Web3(
-    Web3.givenProvider || "https://quaint-evocative-morning.matic-testnet.discover.quiknode.pro/51f4850ccaec8ad41a57f0dcd7d0e51b694fd6bf/"
+    Web3.givenProvider || "https://cool-tiniest-gadget.ethereum-goerli.discover.quiknode.pro/246364df7cda3039117bdc419267d7a7f37110f4/"
   );
   const nftaddress = "0x30ede7289d52412c22b78741e78BB153A4EF6b07";
   const tokenaddress = "0x54fc29154Dc49D36d58A18A8fD035182EB3BB3a1";
@@ -240,7 +238,6 @@ export default function ClientDashboard() {
                             className={ClientDashboardStyles.bidbtns}
                             key={item.id}
                             onClick={() => {
-                              console.log("qqqqqqqq", item.freelancer, item.sold);
                               setenableChat(true);
                             }}
                             disabled={item.sold ? false : true}
@@ -248,9 +245,9 @@ export default function ClientDashboard() {
                             Chat
                           </button>
                           {!approvEn && (
-                            <div className=" flex justify-end w-full">
+                            <div className=" flex justify-end w-full ">
                               <button
-                                className={ClientDashboardStyles.bidbtnn}
+                                className={ClientDashboardStyles.bidbtnn + " disabled:bg-grey-400"}
                                 key={item.id}
                                 onClick={() => {
                                   console.log("qqqqqqqq", item.freelancer, item.sold);

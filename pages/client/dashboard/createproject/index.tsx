@@ -1,14 +1,11 @@
 import { FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, Theme, useTheme } from "@mui/material";
 import React, { useState, useRef, useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
 import CreateProjectStyles from "./createproject.module.scss";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import Web3 from "web3";
 import clientABI from "../../../../src/abi/client-abi.json";
 import { NFTStorage, File } from "nft.storage";
-import { Web3Storage, getFilesFromPath } from "web3.storage";
-import fs from "fs";
 
 export default function CreateProject() {
   const router = useRouter();
