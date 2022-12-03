@@ -225,7 +225,9 @@ export default function ClientDashboard() {
                     <span>PROJECT STATUS</span>
                     <span>ACTIONS</span>
                   </div>
-                  {projectdetails[0].projectName !== "" &&
+                  {projectdetails &&
+                    projectdetails.length &&
+                    projectdetails[0].projectName !== "" &&
                     projectdetails?.map((item, index) => (
                       <div className={ClientDashboardStyles.nftlist + " flex gap-4 justify-between"}>
                         <div>{item.projectName}</div>
