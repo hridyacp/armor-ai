@@ -239,7 +239,7 @@ export default function FreelancerMarketplace() {
                 <div className={FreelancerMarketlaceStyles.sidehead + " p-8 uppercase"}>NFT MARKEPLACE</div>
                 <div className={FreelancerMarketlaceStyles.projectlist + " flex flex-wrap overflow-hidden gap-4 bg-[#171717] text-white p-4"}>
                   {Nft.map((item, index) => (
-                    <div className={FreelancerMarketlaceStyles.nftlist + " flex-col border-white b-1 border-solid"}>
+                    <div key={index} className={FreelancerMarketlaceStyles.nftlist + " flex-col border-white b-1 border-solid"}>
                       <div>{item.projectName}</div>
                       <div>{item.project_cost}</div>
                       <div>{item.description}</div>

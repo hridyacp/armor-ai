@@ -146,7 +146,7 @@ export default function FreelancerDashboard() {
                     projectdetails.length &&
                     projectdetails[0].projectName !== "" &&
                     projectdetails?.map((item, index) => (
-                      <div className={FreelancerDashboardStyles.nftlist + " flex gap-4 justify-between"}>
+                      <div key={index} className={FreelancerDashboardStyles.nftlist + " flex gap-4 justify-between"}>
                         <div>{item.projectName}</div>
                         <div>{item.project_cost}</div>
                         <div>{"on Going"}</div>
