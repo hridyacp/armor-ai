@@ -54,7 +54,9 @@ export default function FreelancerDashboard() {
     );
   };
   const getNameAddress = async () => {
-    const provider = new ethers.providers.JsonRpcProvider("https://goerli.infura.io/v3/");
+    const provider = new ethers.providers.JsonRpcProvider(
+      "https://cool-tiniest-gadget.ethereum-goerli.discover.quiknode.pro/246364df7cda3039117bdc419267d7a7f37110f4/"
+    );
     let address = localStorage.getItem("walletaddress");
     let names = await provider.lookupAddress(address!);
     if (names) {
