@@ -81,6 +81,7 @@ export default function ClientSignup() {
             from: address[0],
             to: nftaddress,
             data: tx.data,
+            gasPrice: 50000000000,
           })
           .then(function (receipt: any) {
             router.push("/client/dashboard");

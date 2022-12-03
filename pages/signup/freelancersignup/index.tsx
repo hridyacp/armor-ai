@@ -73,6 +73,7 @@ export default function FreelancerSignup() {
             from: address[0],
             to: nftaddress,
             data: tx.data,
+            gasPrice: 50000000000,
           })
           .then(function (receipt: any) {
             router.push("/freelancer/dashboard");
