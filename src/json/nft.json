@@ -5,7 +5,8 @@
         "company name": "My first crypto",
         "email":"abc@angrycrypto.com",
         "number":9440203945,
-        "budget":"10k"
+        "budget":"10k",
+        "status":"On Going"
       },
       {
         "id":2,
@@ -13,7 +14,8 @@
         "company name": "My first crypto",
         "email":"abc@angrycrypto.com",
         "number":9440203945,
-        "budget":"10k"
+        "budget":"10k",
+        "status":"Created"
       },
       {
         "id":3,
@@ -21,7 +23,8 @@
         "company name": "My first crypto",
         "email":"abc@angrycrypto.com",
         "number":9440203945,
-        "budget":"10k"
+        "budget":"10k",
+        "status":"Completed"
       },
       {
         "id":4,
@@ -29,6 +32,7 @@
         "company name": "My first crypto",
         "email":"abc@angrycrypto.com",
         "number":9440203945,
-        "budget":"10k"
+        "budget":"10k",
+        "status":"Completed"
       }
 ]
