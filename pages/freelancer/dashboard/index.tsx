@@ -87,7 +87,7 @@ export default function FreelancerDashboard() {
         const nftData = `https://nftstorage.link/${dats}`;
         const response = await fetch(nftData);
         const json = await response.json();
-        totalprojects[i].projectName = json.company;
+        totalprojects[i].projectName = json.projectName;
         totalprojects[i].description = json.description;
       } else {
         totalprojects[i].projectName = "New project";
