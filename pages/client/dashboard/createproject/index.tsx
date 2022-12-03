@@ -227,7 +227,7 @@ export default function CreateProject() {
                       <div className="text-center justify-center p-1">
                         <textarea
                           defaultValue={fields.description}
-                          className={CreateProjectStyles.textArea100}
+                          className={CreateProjectStyles.textArea100 + " placeholder-white placeholder-opacity-50"}
                           placeholder="Project description"
                           onChange={(e) => handleInputChange(e, "description")}
                           required
@@ -237,7 +237,7 @@ export default function CreateProject() {
                       <div className="text-center justify-center p-1">
                         <input
                           defaultValue={fields.budget}
-                          className={CreateProjectStyles.input100}
+                          className={CreateProjectStyles.input100 + " placeholder-white placeholder-opacity-50"}
                           placeholder="Budget"
                           onChange={(e) => handleInputChange(e, "budget")}
                           requi-600
@@ -247,7 +247,7 @@ export default function CreateProject() {
                       <div className="text-center justify-center p-1">
                         <input
                           defaultValue={fields.contact}
-                          className={CreateProjectStyles.input100}
+                          className={CreateProjectStyles.input100 + " placeholder-white placeholder-opacity-50"}
                           placeholder="Contact Number"
                           onChange={(e) => handleInputChange(e, "contact")}
                           required
@@ -257,7 +257,7 @@ export default function CreateProject() {
                       <div className="text-center justify-center p-1">
                         <input
                           defaultValue={fields.email}
-                          className={CreateProjectStyles.input100}
+                          className={CreateProjectStyles.input100 + " placeholder-white placeholder-opacity-50"}
                           placeholder="Email"
                           onChange={(e) => handleInputChange(e, "email")}
                           required
