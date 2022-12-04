@@ -304,7 +304,7 @@ export default function ClientDashboard() {
                               Complete
                             </button>
                           )}
-                          {enableChat && (
+                          {enableChat && item.freelancer && (
                             <Chat
                               account={useraccount.toString()} //user address
                               supportAddress={item.freelancer} //support address
